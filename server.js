@@ -1,9 +1,14 @@
 const express = require('express');
 
+const database = require('./database');
+
 const server = express();
 
 server.use(express.json());
 
+
+// lista
+/*
 const caixa = 
 [
     {
@@ -27,30 +32,35 @@ const caixa =
         valor: 1000.0,
         data: "15/05/2020"
     }
-]
+] */
 
 // ler
-server.get('/caixa', function(request, response) {
-    response.json(caixa);
+server.get('/caixa', async function(request, response) {
+    //response.json(caixa);
+
+    const dados = await database.select();
+    return response.json(dados);
 })
 
 // adicionar
-server.post('/caixa', function(request, response) {
+server.post('/caixa', async function(request, response) {
 
-    const {id, operacao, categoria, valor, data} = request.body;
-
-    caixa.push({id,operacao,categoria,valor,data});
+    const {operacao, categoria, valor, data} = request.body;
+    
+    //caixa.push({id,operacao,categoria,valor,data});
+    
+    const result = await database.create(operacao, categoria, valor, data);
 
     response.status(204).send();
-
 })
 
 //alterar
-server.put('/caixa/:id', function(request, response) {
+server.put('/caixa/:id', async function(request, response) {
 
     const id = request.params.id;
     const {operacao, categoria, valor, data} = request.body;
 
+    /*
     for(let i = 0; i < caixa.length; i++) {
         if(caixa[i].id == id){
             caixa[i].operacao = operacao;
@@ -60,23 +70,28 @@ server.put('/caixa/:id', function(request, response) {
             break;
         }
     }
+    */
+
+    const result = await database.update(id, operacao, categoria, valor, data);
 
    return response.status(204).send();
 
 })
 
 //delete
-server.delete('/caixa/:id', function(request, response) {
+server.delete('/caixa/:id', async function(request, response) {
 
     const id = request.params.id;
     
-
-    for(let i = 0; i < caixa.length; i++) {
+   /* for(let i = 0; i < caixa.length; i++) {
         if(caixa[i].id == id){
             caixa.splice(i,1);
             break;
         }
     }
+   */
+
+    const result = await database.delete(id);
 
    return response.status(204).send();
 
