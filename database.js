@@ -11,7 +11,7 @@ const pool = new Pool({
     ssl: {rejectUnauthorized: false}
 });
 
-/*
+
 const sqlCreate = `
     CREATE TABLE IF NOT EXISTS CaixaFluxo
     (
@@ -24,8 +24,13 @@ const sqlCreate = `
     )
 `;
 
+const abc = `
+    INSERT INTO CaixaFluxo (operacao, categoria, valor, data, ativo) 
+                                VALUES   ( '+','Aporte','12000','06/30/2020', 0)
+`;
 
-pool.query(sqlCreate, function(error, result) {
+
+pool.query(abc, function(error, result) {
 
     if(error)
         throw error
@@ -33,7 +38,7 @@ pool.query(sqlCreate, function(error, result) {
     console.log('Tabela criada com sucesso!')
 } );
 
-*/
+
 
 // ----------------------------------------------------------
 
@@ -44,11 +49,11 @@ pool.query(sqlCreate, function(error, result) {
 
 module.exports = {
 
-    async  create(operacao, categoria, valor, data) {
-    const sql = ` INSERT INTO CaixaFluxo (operacao, categoria, valor, data) 
-                                VALUES   ( $1,$2, $3, $4)`;
+    async  create(operacao, categoria, valor, data, ativo) {
+    const sql = ` INSERT INTO CaixaFluxo (operacao, categoria, valor, data, ativo) 
+                                VALUES   ( $1,$2, $3, $4, $5)`;
 
-    const result = await pool.query(sql, [operacao, categoria, valor, data])
+    const result = await pool.query(sql, [operacao, categoria, valor, data, ativo])
 
     return result.rowCount;
     
@@ -72,16 +77,17 @@ async  delete(id) {
     
 },
 
-async  update(id, operacao, categoria, valor, data) {
+async  update(id, operacao, categoria, valor, data, ativo) {
     const sql = ` UPDATE CaixaFluxo SET 
     operacao = $2,
     categoria = $3,
     valor = $4,
-    data = $5
+    data = $5,
+    ativo = $6
 
     where $1 = id `;
 
-    const result = await pool.query(sql, [id, operacao, categoria, valor, data])
+    const result = await pool.query(sql, [id, operacao, categoria, valor, data, ativo])
 
     return result.rowCount;
     
