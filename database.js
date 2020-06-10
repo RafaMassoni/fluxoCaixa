@@ -85,7 +85,7 @@ async  update(id, operacao, categoria, valor, data, ativo) {
     categoria = $3,
     valor = $4,
     data = $5,
-    ativo = $6
+    ativo = $6,
 
     where $1 = id `;
 
