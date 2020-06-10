@@ -13,15 +13,17 @@ const pool = new Pool({
 
 /*
 const sqlCreate = `
-    CREATE TABLE IF NOT EXISTS fluxocaixa
+    CREATE TABLE IF NOT EXISTS CaixaFluxo
     (
         id serial primary key,
         operacao varchar(1) not null,
         categoria varchar(25) not null,
         valor float not null,
-        data varchar(12) not null
+        data date not null,
+        ativo int not null
     )
 `;
+
 
 pool.query(sqlCreate, function(error, result) {
 
@@ -43,7 +45,7 @@ pool.query(sqlCreate, function(error, result) {
 module.exports = {
 
     async  create(operacao, categoria, valor, data) {
-    const sql = ` INSERT INTO fluxocaixa (operacao, categoria, valor, data) 
+    const sql = ` INSERT INTO CaixaFluxo (operacao, categoria, valor, data) 
                                 VALUES   ( $1,$2, $3, $4)`;
 
     const result = await pool.query(sql, [operacao, categoria, valor, data])
@@ -53,7 +55,7 @@ module.exports = {
 },
 
 async  select() {
-    const sql = ` SELECT * FROM fluxocaixa `;
+    const sql = ` SELECT * FROM CaixaFluxo `;
 
     const result = await pool.query(sql)
 
@@ -62,7 +64,7 @@ async  select() {
 },
 
 async  delete(id) {
-    const sql = ` DELETE FROM fluxocaixa where $1 = id `;
+    const sql = ` DELETE FROM CaixaFluxo where $1 = id `;
 
     const result = await pool.query(sql, [id])
 
@@ -71,7 +73,7 @@ async  delete(id) {
 },
 
 async  update(id, operacao, categoria, valor, data) {
-    const sql = ` UPDATE fluxocaixa SET 
+    const sql = ` UPDATE CaixaFluxo SET 
     operacao = $2,
     categoria = $3,
     valor = $4,
