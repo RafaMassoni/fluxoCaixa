@@ -12,6 +12,7 @@ const pool = new Pool({
 });
 
 
+/*
 const sqlCreate = `
     CREATE TABLE IF NOT EXISTS CaixaFluxo
     (
@@ -37,6 +38,7 @@ pool.query(abc, function(error, result) {
 
     console.log('Tabela criada com sucesso!')
 } );
+*/
 
 
 
