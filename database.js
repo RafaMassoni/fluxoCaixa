@@ -51,13 +51,13 @@ pool.query(abc, function(error, result) {
 
 module.exports = {
 
-    async  create(operacao, categoria, valor, data, ativo) {
-    const sql = ` INSERT INTO CaixaFluxo (operacao, categoria, valor, data, ativo) 
-                                VALUES   ( $1,$2, $3, $4, $5)`;
+async  create(operacao, categoria, valor, data, ativo) {
+const sql = ` INSERT INTO CaixaFluxo (operacao, categoria, valor, data, ativo) 
+                            VALUES   ( $1,$2, $3, $4, $5)`;
 
-    const result = await pool.query(sql, [operacao, categoria, valor, data, ativo])
+const result = await pool.query(sql, [operacao, categoria, valor, data, ativo])
 
-    return result.rowCount;
+return result.rowCount;
     
 },
 

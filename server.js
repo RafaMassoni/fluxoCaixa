@@ -49,11 +49,11 @@ server.get('/caixa', async function(request, response) {
 // adicionar
 server.post('/caixa', async function(request, response) {
 
-    const {operacao, categoria, valor, data} = request.body;
+    const {operacao, categoria, valor, data, ativo} = request.body;
     
     //caixa.push({id,operacao,categoria,valor,data});
     
-    const result = await database.create(operacao, categoria, valor, data);
+    const result = await database.create(operacao, categoria, valor, data, ativo);
 
     response.status(204).send();
 })
@@ -62,7 +62,7 @@ server.post('/caixa', async function(request, response) {
 server.put('/caixa/:id', async function(request, response) {
 
     const id = request.params.id;
-    const {operacao, categoria, valor, data} = request.body;
+    const {operacao, categoria, valor, data, ativo} = request.body;
 
     /*
     for(let i = 0; i < caixa.length; i++) {
@@ -76,7 +76,7 @@ server.put('/caixa/:id', async function(request, response) {
     }
     */
 
-    const result = await database.update(id, operacao, categoria, valor, data);
+    const result = await database.update(id, operacao, categoria, valor, data, ativo);
 
    return response.status(204).send();
 
