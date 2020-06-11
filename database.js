@@ -98,7 +98,7 @@ async  update(id, operacao, categoria, valor, data, ativo) {
 async  updateAtivo(id, ativo) {
     const sql = ` UPDATE CaixaFluxo SET 
  
-    ativo = $6
+    ativo = $2
 
     where $1 = id `;
 
