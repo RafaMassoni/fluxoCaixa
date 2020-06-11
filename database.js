@@ -62,7 +62,7 @@ return result.rowCount;
 },
 
 async  select() {
-    const sql = ` SELECT * FROM CaixaFluxo `;
+    const sql = ` SELECT * FROM CaixaFluxo order by data`;
 
     const result = await pool.query(sql)
 
