@@ -59,28 +59,18 @@ server.post('/caixa', async function(request, response) {
 })
 
 //alterar
-server.put('/caixa/:id', async function(request, response) {
+server.put('/caixa/id/:id', async function(request, response) {
 
     const id = request.params.id;
-    const {operacao, categoria, valor, data, ativo} = request.body;
+    const {ativo} = request.body;
 
-    /*
-    for(let i = 0; i < caixa.length; i++) {
-        if(caixa[i].id == id){
-            caixa[i].operacao = operacao;
-            caixa[i].categoria = categoria;
-            caixa[i].valor = valor;
-            caixa[i].data = data;
-            break;
-        }
-    }
-    */
-
-    const result = await database.update(id, operacao, categoria, valor, data, ativo);
+    const result = await database.updateAtivo(id,ativo);
 
    return response.status(204).send();
 
 })
+
+
 
 //delete
 server.delete('/caixa/:id', async function(request, response) {

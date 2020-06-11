@@ -93,7 +93,22 @@ async  update(id, operacao, categoria, valor, data, ativo) {
 
     return result.rowCount;
     
+},
+
+async  updateAtivo(id, ativo) {
+    const sql = ` UPDATE CaixaFluxo SET 
+ 
+    ativo = $6
+
+    where $1 = id `;
+
+    const result = await pool.query(sql, [id, operacao, categoria, valor, data, ativo])
+
+    return result.rowCount;
+    
 }
+
+
 
 }
 
