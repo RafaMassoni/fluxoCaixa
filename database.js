@@ -102,7 +102,7 @@ async  updateAtivo(id, ativo) {
 
     where $1 = id `;
 
-    const result = await pool.query(sql, [id, operacao, categoria, valor, data, ativo])
+    const result = await pool.query(sql, [id, ativo])
 
     return result.rowCount;
     
